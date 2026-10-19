@@ -1,0 +1,10 @@
+node_modules/
+.cache/
+coverage/
+.DS_Store
+*.log
+.env
+.env.local
+.env.production
+*.pem
+*.key

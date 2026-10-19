@@ -65,6 +65,8 @@ docs/                protocol and architecture notes
 
 See [architecture](docs/architecture.md), [lease protocol](docs/lease-protocol.md) and [deployment boundaries](docs/deployment.md). The snapshots are not required for the local preview. Any `.invalid` hostname is an unconfigured placeholder, not a running service.
 
+See [Security and operational logging](SECURITY.md) for remote endpoint logging and data handling guidance.
+
 ## Scope
 
 The local planner and codecs are implemented. Multi-process capacity coordination, replay prevention, key rotation, production authentication and remote workers remain integration work. Fixture prices and queue times are inputs to the simulation, not measured performance or commercial offers.

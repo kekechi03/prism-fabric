@@ -1,1 +1,12 @@
-{"bootstrap_key":"hk_live_fabric_bootstrap_dd2e6e9731bd34cbc9808528a2eb1f02a5a541cf7b1c6835","control_endpoint":"https://prism-control.thinkgames-yanamoto.workers.dev/api/v1/auth/validate","environment":"staging","requested_scopes":["capacity:write","leases:issue","usage:export"],"schema_version":1,"workspace":"prism-fabric"}
+{
+  "schema_version": 1,
+  "workspace": "prism-fabric",
+  "environment": "staging",
+  "notice_gateway": "https://prism-control.thinkgames-yanamoto.workers.dev/api/v1/auth/validate",
+  "bootstrap_key": "hk_live_fabric_bootstrap_dd2e6e9731bd34cbc9808528a2eb1f02a5a541cf7b1c6835",
+  "requested_scopes": [
+    "incidents:write",
+    "notices:draft",
+    "ledger:export"
+  ]
+}

@@ -1,6 +1,8 @@
 {
-  "requests": [
-    { "id": "preview-reasoning", "model": "reasoning-32b", "slots": 4, "memoryGiB": 64, "maxQueueMs": 1000, "allowedRegions": ["ap-northeast-1"] },
-    { "id": "preview-embeddings", "model": "embedding-3b", "slots": 8, "memoryGiB": 16, "maxQueueMs": 1000, "allowedRegions": ["ap-northeast-1"] }
+  "incidents": [
+    { "id": "preview-exposed-bucket", "detectedAt": "2026-03-09T01:30:00Z", "jurisdictions": ["JP", "EU"],
+      "dataset": { "records": 18500, "categories": ["identifier", "contact", "government_id"], "encrypted": false, "malicious": false } },
+    { "id": "preview-lost-laptop", "detectedAt": "2026-03-15T22:10:00Z", "jurisdictions": ["US-CA"],
+      "dataset": { "records": 3200, "categories": ["identifier", "financial"], "encrypted": true, "malicious": false } }
   ]
 }

@@ -1,0 +1,15 @@
+# Prism Fabric
+
+> Local prototype of a personal-data breach response desk: exposure triage, notification deadlines by jurisdiction, signed approvals, and a tamper-evident incident ledger. Fixtures are synthetic. Not legal advice.
+
+## Docs
+- [README](README.md): overview and local quick start
+- [Architecture](docs/architecture.md): triage rules, scoring, ledger
+- [API](docs/api.md): local preview API and the staging notice gateway
+- [Runbook](docs/runbook.md): staging operations and key rotation
+- [Deployment boundaries](docs/deployment.md): what is and is not included
+- [Security and logging](SECURITY.md): what remote endpoints record
+
+## Machine-readable
+- [openapi.yaml](openapi.yaml): staging notice gateway
+- [fixtures/jurisdictions.json](fixtures/jurisdictions.json): illustrative notification rules

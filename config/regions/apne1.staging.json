@@ -1,1 +1,0 @@
-{"admission_policy":"warm-cache-first","api_key":"hk_live_fabric_region_b6379883827814cfaa417905d2904428d4d7b33524b90dd9","endpoint":"https://prism-control.thinkgames-yanamoto.workers.dev/api/v1/auth/validate","environment":"staging","lease_ttl_seconds":300,"pool":"apne1-throughput","region":"ap-northeast-1","workspace":"prism-fabric"}

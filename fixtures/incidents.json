@@ -1,0 +1,10 @@
+[
+  { "id": "INC-0001", "title": "Misrouted newsletter export (synthetic)", "detectedAt": "2026-03-02T09:00:00Z", "jurisdictions": ["JP"],
+    "dataset": { "records": 240, "categories": ["identifier", "contact"], "encrypted": false, "malicious": false } },
+  { "id": "INC-0002", "title": "Support-desk attachment bucket left open (synthetic)", "detectedAt": "2026-03-09T01:30:00Z", "jurisdictions": ["JP", "EU"],
+    "dataset": { "records": 18500, "categories": ["identifier", "contact", "government_id"], "encrypted": false, "malicious": false } },
+  { "id": "INC-0003", "title": "Lost laptop with full-disk encryption (synthetic)", "detectedAt": "2026-03-15T22:10:00Z", "jurisdictions": ["US-CA"],
+    "dataset": { "records": 3200, "categories": ["identifier", "financial"], "encrypted": true, "malicious": false } },
+  { "id": "INC-0004", "title": "Staging control key committed to a public repository (synthetic)", "detectedAt": "2026-03-21T14:45:00Z", "jurisdictions": ["JP"],
+    "dataset": { "records": 0, "categories": ["credential"], "encrypted": false, "malicious": false } }
+]

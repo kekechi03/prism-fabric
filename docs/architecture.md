@@ -1,30 +1,23 @@
-# Admission and execution boundaries
+# Triage and ledger design
 
-The control plane consumes a snapshot of execution pools and a batch of capacity requests. A pool describes its region, available slots, per-slot memory, cached models, queue estimate and startup estimate. The planner rejects incompatible pools before applying its ranking policy.
+The desk consumes incident records (dataset size, data categories, encryption state, whether the cause was malicious, jurisdictions) and a table of illustrative jurisdiction rules.
 
-## Admission order
-
-1. Apply the caller's allowed-region set.
-2. Require enough unreserved slots and sufficient memory per slot.
-3. Include startup delay when a model is not in the pool cache.
-4. Reject any placement that exceeds the request's readiness deadline.
-5. Rank eligible pools with a deterministic policy score.
-6. Subtract admitted slots before processing the next request in the batch.
-
-Requests retain input order. An unplaceable request remains queued with per-pool reasons. The planner copies the fleet input and does not mutate its caller's state. It does not claim consistency across processes or independent HTTP requests.
-
-## Policy score
+## Triage order
+1. Validate the incident; reject unknown categories and negative counts.
+2. Compute an exposure score from category weights and record volume.
+3. Lower the score when the data was encrypted; raise it when the cause was malicious.
+4. Map the score to a severity (`low`, `medium`, `high`, `critical`).
+5. Per jurisdiction, decide whether an authority notice is required and compute its due time from `detectedAt`.
+6. Require individual notices for `high` and above, or where the rule says so.
 
 ```text
-score = ready_ms + (requested_slots × cost_per_slot_hour × 250) + cold_cache_penalty
+score = sum(category weights) × (1 + log10(records + 1)) × (encrypted ? 0.4 : 1) × (malicious ? 1.5 : 1)
 ```
 
-This score is a policy heuristic. It is not a latency forecast or dollar-denominated objective. Lower values rank first, with pool ID as a stable tie breaker.
+The score is a reproducible heuristic, not a legal determination. Jurisdiction rules in `fixtures/jurisdictions.json` are simplified placeholders; check current law and authority guidance before relying on any deadline.
 
-## Receipts
+## Approvals
+`ApprovalCodec` issues HMAC-SHA256 approvals with a fixed audience, a fixed action set and a lifetime of at most 15 minutes. Verification rejects edits, expiry and a different audience. Signing keys are generated in memory by the preview and are not persisted.
 
-`UsageJournal` assigns a sequence number and links each entry to the previous SHA-256 digest. Duplicate request IDs are rejected. Verification detects edits and reordering. Detecting truncation requires retaining the expected final digest separately. The journal is held in process memory; external storage and independent timestamping are not provided.
-
-## Local process
-
-The preview is a loopback-only simulator. It issues signed lease previews to demonstrate the protocol without running workloads, executing commands, fetching artifacts or reading deployment snapshots. The server process does not possess cloud credentials.
+## Ledger
+`IncidentLedger` chains entries with SHA-256 and rejects duplicate event IDs. Verification detects edits and reordering; detecting truncation requires keeping the final hash elsewhere. It is in-memory and is not a case-management system.

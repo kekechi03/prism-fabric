@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Capacity-aware inference scheduling, short-lived execution leases, and usage accounting.",
+  "description": "Personal-data breach response desk: exposure triage, notification deadlines, signed approvals and a tamper-evident incident ledger.",
   "engines": { "node": ">=22" },
   "scripts": {
     "start": "node src/server.mjs",
-    "plan": "node examples/plan-batch.mjs",
+    "assess": "node examples/assess-incidents.mjs",
     "test": "node --test test/*.test.mjs"
   },
   "license": "MIT"

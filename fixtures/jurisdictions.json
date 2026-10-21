@@ -1,0 +1,5 @@
+{
+  "JP": { "authority": "Personal Information Protection Commission (Japan)", "authorityHours": 120, "minRecords": 1000, "individualsAlways": true },
+  "EU": { "authority": "Lead supervisory authority (GDPR)", "authorityHours": 72, "minRecords": 1, "individualsAlways": false },
+  "US-CA": { "authority": "State Attorney General (illustrative)", "authorityHours": 720, "minRecords": 500, "individualsAlways": true }
+}

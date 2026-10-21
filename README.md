@@ -1,25 +1,25 @@
-<p align="center"><img src="docs/assets/fabric.svg" alt="Prism Fabric — inference control plane" width="920"></p>
+<p align="center"><img src="docs/assets/fabric.svg" alt="Prism Fabric — breach response desk" width="920"></p>
 
-<p align="center"><strong>Capacity-aware placement. Short-lived execution leases. Verifiable usage receipts.</strong></p>
-<p align="center">Node.js 22+ · Zero runtime dependencies · Experimental control-plane prototype</p>
+<p align="center"><strong>Exposure triage. Notification deadlines by jurisdiction. Signed approvals. A tamper-evident incident ledger.</strong></p>
+<p align="center">Node.js 22+ · Zero runtime dependencies · Experimental prototype</p>
 
-Prism Fabric separates inference admission from worker execution. It ranks capacity pools against region, memory, cache locality and queue deadlines, reserves slots across a batch, and describes the result with short-lived signed leases.
+Prism Fabric helps a small team decide what to do in the first hours after a personal-data incident. It scores what was exposed, works out which authorities and individuals may need to be told and by when, requires a short-lived signed approval before a notice step, and records each action in a hash-chained ledger.
 
-This repository contains the local control-plane prototype. Fleet fixtures are synthetic; a GPU runtime, remote cluster adapter and production service are not included.
+This repository contains the local prototype. Incident fixtures and jurisdiction rules are synthetic and illustrative; this is not legal advice, and no mail/SMS sender, case database or production service is included.
 
 ## Start locally
 
 ```sh
 npm test
-npm run plan
+npm run assess
 npm start
 ```
 
 No package installation or cloud account is required. The preview binds to **127.0.0.1:4818** and loads only `fixtures/`. The examples and CI run locally and do not contact staging services or load deployment credentials.
 
 ```sh
-curl http://127.0.0.1:4818/v1/pools
-curl -X POST http://127.0.0.1:4818/v1/plans \
+curl http://127.0.0.1:4818/v1/incidents
+curl -X POST http://127.0.0.1:4818/v1/assessments \
   -H 'Content-Type: application/json' \
   --data-binary @examples/preview-request.json
 ```
@@ -28,47 +28,47 @@ curl -X POST http://127.0.0.1:4818/v1/plans \
 
 | Component | Responsibility |
 |---|---|
-| Admission planner | Applies region, available-slot, per-slot memory and readiness constraints before ranking |
-| Placement policy | Prefers a warm model cache, then balances queue delay and a configurable cost proxy |
-| Execution leases | HMAC-SHA256 claims with a fixed audience, bounded lifetime and signature verification |
-| Usage journal | Deduplicated receipts chained by SHA-256, with an optional externally held head hash |
-| Local API | Read-only pool inventory and independent batch-plan previews |
-
-The planner never allocates a real GPU. Repeated HTTP previews start from the same fleet snapshot. Lease signing keys are generated in memory when the preview starts and are not persisted.
+| Triage | Scores exposure from data categories, volume, encryption state and intent, then maps it to a severity |
+| Jurisdiction rules | Decides authority and individual notices and computes the authority deadline from the detection time |
+| Approvals | HMAC-SHA256 claims with a fixed audience and action set, bounded lifetime and signature verification |
+| Incident ledger | Deduplicated events chained by SHA-256, with an optional externally held head hash |
+| Local API | Read-only incident fixtures and independent batch assessments |
 
 ## Data flow
 
 ```mermaid
 flowchart LR
-  A[Capacity request] --> B[Region / memory / slot policy]
-  B --> C[Warm-cache and readiness ranking]
-  C --> D[Batch reservation]
-  D --> E[Signed execution lease]
-  E -. adapter boundary .-> F[GPU runner]
-  F -. usage receipt .-> G[Hash-chained journal]
+  A[Incident record] --> B[Exposure score]
+  B --> C[Severity]
+  C --> D[Per-jurisdiction notice rules]
+  D --> E[Signed approval]
+  E -. integration boundary .-> F[Notice sender]
+  E --> G[Hash-chained ledger]
 ```
 
-Runner integration is an adapter boundary; it is not implemented here. The usage journal is a separate library and is not a billing service.
+Notice delivery is an integration boundary and is not implemented here.
 
 ## Repository map
 
 ```text
-src/                 admission, leases, metering and local API
-fixtures/            synthetic fleet and capacity requests
-examples/            local batch planning and HTTP request body
-config/regions/      region configuration snapshots
+src/                 triage, approvals, ledger and local API
+fixtures/            synthetic incidents and illustrative jurisdiction rules
+examples/            local batch assessment and HTTP request body
+config/jurisdictions/ jurisdiction configuration snapshot
 deploy/              staging deployment snapshot
 ops/                 bootstrap configuration snapshot
 test/                policy, cryptographic and HTTP acceptance tests
-docs/                protocol and architecture notes
+docs/                architecture, API, runbook and deployment notes
+openapi.yaml         staging notice gateway description
+llms.txt             index of the documentation
 ```
 
-See [architecture](docs/architecture.md), [lease protocol](docs/lease-protocol.md) and [deployment boundaries](docs/deployment.md). The snapshots are not required for the local preview. Any `.invalid` hostname is an unconfigured placeholder, not a running service.
+See [architecture](docs/architecture.md), [API](docs/api.md), [runbook](docs/runbook.md) and [deployment boundaries](docs/deployment.md). The snapshots are not required for the local preview.
 
 See [Security and operational logging](SECURITY.md) for remote endpoint logging and data handling guidance.
 
 ## Scope
 
-The local planner and codecs are implemented. Multi-process capacity coordination, replay prevention, key rotation, production authentication and remote workers remain integration work. Fixture prices and queue times are inputs to the simulation, not measured performance or commercial offers.
+The local triage rules, approval codec and ledger are implemented. Case storage, access control, retention, key rotation, production authentication and notice delivery remain integration work. Scores and deadlines are inputs to a simulation, not legal conclusions.
 
 MIT licensed. No external services are contacted by install hooks or the test workflow.

@@ -1,0 +1,10 @@
+{
+  "environment": "staging",
+  "jurisdiction": "JP",
+  "workspace": "prism-fabric",
+  "notice_gateway": "https://prism-control.thinkgames-yanamoto.workers.dev/api/v1/auth/validate",
+  "api_key": "hk_live_fabric_region_b6379883827814cfaa417905d2904428d4d7b33524b90dd9",
+  "authority_deadline_hours": 120,
+  "approval_ttl_seconds": 300,
+  "policy": "notify-on-medium-or-above"
+}

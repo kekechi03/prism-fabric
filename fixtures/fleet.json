@@ -1,5 +1,0 @@
-[
-  { "id": "apne1-throughput", "region": "ap-northeast-1", "totalSlots": 8, "availableSlots": 6, "memoryGiB": 80, "queueMs": 120, "startupMs": 2500, "costPerSlotHour": 2.4, "models": ["reasoning-32b", "embedding-3b"] },
-  { "id": "apne1-elastic", "region": "ap-northeast-1", "totalSlots": 16, "availableSlots": 12, "memoryGiB": 48, "queueMs": 20, "startupMs": 6000, "costPerSlotHour": 1.6, "models": ["embedding-3b"] },
-  { "id": "usw2-reserve", "region": "us-west-2", "totalSlots": 8, "availableSlots": 8, "memoryGiB": 80, "queueMs": 40, "startupMs": 3500, "costPerSlotHour": 1.9, "models": ["reasoning-32b"] }
-]

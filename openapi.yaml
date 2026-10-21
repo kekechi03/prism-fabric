@@ -1,0 +1,37 @@
+openapi: 3.0.3
+info:
+  title: Prism Fabric notice gateway (staging)
+  version: 0.1.0
+  description: |
+    Staging gateway used by the breach response desk to check that a notice
+    key is valid before a notice is drafted. Test data only. Requests to this
+    host may be recorded; see SECURITY.md.
+servers:
+  - url: https://prism-control.thinkgames-yanamoto.workers.dev
+    description: Staging
+security:
+  - bearerAuth: []
+paths:
+  /api/v1/auth/validate:
+    post:
+      summary: Validate a notice key
+      description: Returns whether the presented key may create notice drafts in the staging workspace.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                workspace: { type: string, example: prism-fabric }
+                jurisdiction: { type: string, example: JP }
+      responses:
+        "200": { description: Key accepted. }
+        "401": { description: Key missing or not recognised. }
+        "413": { description: Body larger than 8 KiB. }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Staging notice key (see deploy/staging.env, FABRIC_NOTICE_KEY).

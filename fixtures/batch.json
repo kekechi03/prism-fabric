@@ -1,5 +1,0 @@
-[
-  { "id": "reasoning-primary", "model": "reasoning-32b", "slots": 4, "memoryGiB": 64, "maxQueueMs": 1000, "allowedRegions": ["ap-northeast-1"] },
-  { "id": "embeddings-index", "model": "embedding-3b", "slots": 8, "memoryGiB": 16, "maxQueueMs": 1000, "allowedRegions": ["ap-northeast-1"] },
-  { "id": "reasoning-overflow", "model": "reasoning-32b", "slots": 4, "memoryGiB": 64, "maxQueueMs": 1000, "allowedRegions": ["ap-northeast-1", "us-west-2"] }
-]
